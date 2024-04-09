@@ -2,9 +2,7 @@ import SimpleLightbox from 'simplelightbox';
 
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
-var lightbox = new SimpleLightbox('.gallery a', {
-  /* options */
-});
+
 
 const images = [
   {
@@ -74,33 +72,7 @@ const images = [
 
 const galleryList = document.querySelector('.gallery');
 
-galleryList.addEventListener('click', showLargeImg);
 
-function showLargeImg(event) {
-  event.preventDefault();
-  if (event.target.nodeName !== 'IMG') {
-    return;
-  }
-
-  lightbox.open();
-}
-
-// instance = SimpleLightbox.create(
-//   `<img src="${event.target.getAttribute(
-//     'data-source'
-//   )}" width="800" height="600">`,
-//   {
-//     onShow: () => {
-//       document.addEventListener('keydown', handleEscapeKeyPress);
-//     },
-//     onClose: () => {
-//       document.removeEventListener('keydown', handleEscapeKeyPress);
-//     },
-//   }
-// );
-// instance.show();
-
-// }
 
 const galleryImagesHTML = images
   .map(({ preview, original, description }) => {
@@ -119,9 +91,13 @@ const galleryImagesHTML = images
 
 galleryList.innerHTML = galleryImagesHTML;
 
-const localStorageItem = localStorage.getItem(
-  'galleryImagesHTML',
-  JSON.stringify(galleryImagesHTML)
-);
 
-console.log(localStorageItem);
+
+
+
+const lightbox = new SimpleLightbox('.gallery a', {
+  captionsData: 'alt', captionDelay: '250'});
+
+
+
+
