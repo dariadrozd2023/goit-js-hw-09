@@ -4,44 +4,35 @@ const formInputs = [];
 forms.forEach(form => {
   const input = form.querySelector('input, textarea');
   if (input) {
-    input.addEventListener('input', foo);
+    input.addEventListener('input', saveInputToLocalStorage);
     formInputs.push(input);
   }
+  form.addEventListener('submit', event => {
+    event.preventDefault();
+    let isFormValid = true;
+
+    formInputs.forEach(input => {
+      if (input.value.trim() === '') {
+        isFormValid = false;
+      }
+    });
+
+    if (!isFormValid) {
+      alert('Всі поля форми повинні бути заповнені');
+      return;
+    }
+    localStorage.removeItem(feedbackFormState);
+    form.reset();
+  });
 });
 
-function foo(event) {
-  const feedback = {
+function saveInputToLocalStorage(event) {
+  const feedbackFormState = {
     email: document.querySelector('[name="email"]').value,
     message: document.querySelector('[name="message"]').value,
   };
-
+  localStorage.setItem(
+    'feedback-form-state',
+    JSON.stringify(feedbackFormState)
+  );
 }
-
-const form = document.querySelector('.feedback-form');
-
-form.addEventListener('submit', event => {
-  event.preventDefault();
-  let isFormValid = true;
-
-  formInputs.forEach(input => {
-    if (input.value.trim() === '') {
-      isFormValid = false;
-    }
-  });
-
-  if (!isFormValid) {
-    alert('Всі поля форми повинні бути заповнені');
-    return;
-  }
-
-  const feedbackFormState = {
-    email: document.querySelector('[name="email"]').value.trim(),
-    message: document.querySelector('[name="message"]').value.trim(),
-  };
-
-  localStorage.setItem('feedbackFormState', JSON.stringify(feedbackFormState));
-  form.reset();
-  console.log(feedbackFormState);
-  
-  form.reset();
-});
