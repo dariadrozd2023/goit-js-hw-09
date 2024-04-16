@@ -1,2 +1,0 @@
-const e=document.querySelector(".feedback-form");e.addEventListener("input",l);function l(r){const t={email:e.querySelector('[name="email"]').value,message:e.querySelector('[name="message"]').value};localStorage.setItem("feedback-form-state",JSON.stringify(t))}e.addEventListener("submit",o);function o(r){r.preventDefault();let t=!0;if(e.querySelectorAll("input, textarea").forEach(a=>{a.value.trim()===""&&(t=!1)}),t===!1){alert("All form fields must be filled in");return}localStorage.removeItem("feedback-form-state"),e.reset()}
-//# sourceMappingURL=2-form-4d794648.js.map
